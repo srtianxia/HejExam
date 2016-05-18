@@ -1,6 +1,8 @@
 package com.srtianxia.hejexam.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +24,10 @@ import butterknife.ButterKnife;
  */
 public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolder> {
     private List<Message> items;
+    private Context context;
 
-    public StockAdapter() {
+    public StockAdapter(Context context) {
+        this.context = context;
         items = new ArrayList<>();
     }
 
@@ -42,6 +46,9 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
     public void onBindViewHolder(StockRvHolder holder, int position) {
         holder.tvTitle.setText(items.get(position).getTitle());
         holder.tvSummary.setText(items.get(position).getSummary());
+        holder.tvLikeCount.setText(""+items.get(position).getLikeCount());
+        holder.tvSource.setText(items.get(position).getSource());
+        holder.horizontalListView.setAdapter(new HorizonListViewAdapter(context,items.get(position).getStocks()));
     }
 
 

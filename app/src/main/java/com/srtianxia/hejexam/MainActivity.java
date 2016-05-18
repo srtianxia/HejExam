@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         rvStock = (RecyclerView) findViewById(R.id.rv_stock);
-        adapter = new StockAdapter();
+        adapter = new StockAdapter(this);
         rvStock.setAdapter(adapter);
         rvStock.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         setSupportActionBar(toolbar);

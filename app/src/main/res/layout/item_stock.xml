@@ -24,8 +24,9 @@
 
     <com.srtianxia.hejexam.view.widget.HorizontalListView
         android:id="@+id/horizontal_list_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.srtianxia.hejexam.view.widget.HorizontalListView>
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="@dimen/item_padding_margin"></com.srtianxia.hejexam.view.widget.HorizontalListView>
 
     <ImageView
         android:layout_marginTop="@dimen/item_padding_margin"
@@ -36,7 +37,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/item_padding_margin">
 
         <ImageView
             android:id="@+id/img_share"
@@ -47,6 +49,7 @@
        <ImageView
            android:id="@+id/img_like"
            android:layout_toRightOf="@+id/img_share"
+           android:layout_marginLeft="@dimen/item_padding_margin"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:src="@mipmap/ic_favorite_grey600_18dp" />
@@ -56,6 +59,7 @@
             android:layout_toRightOf="@id/img_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_padding_margin"
             tool:text="5"/>
 
         <TextView

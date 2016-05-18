@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.srtianxia.hejexam.model.IRequestModel;
 import com.srtianxia.hejexam.model.bean.Message;
 import com.srtianxia.hejexam.model.bean.MessageHolder;
+import com.srtianxia.hejexam.util.HSJsonUtil;
 import com.srtianxia.hejexam.util.OkHttpUtils;
 import com.srtianxia.hejexam.util.ReadJsonFileUtil;
 
