@@ -91,6 +91,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onRelieveView();
+    }
+
     public static class TimeBroadCastReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {

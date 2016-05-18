@@ -64,6 +64,10 @@ public class MainActivityPresenter {
                 });
     }
 
+    //释放引用
+    public void onRelieveView() {
+        if (iMainActivity != null) iMainActivity = null;
+    }
 
     public interface IMainActivity{
         void initJsonFileData(List<Message> messages);

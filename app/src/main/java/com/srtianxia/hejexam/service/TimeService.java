@@ -43,12 +43,12 @@ public class TimeService extends Service {
             public void run() {
                 Calendar c = Calendar.getInstance();
                 hour =  c.get(Calendar.HOUR_OF_DAY);
-                if (hour >= 22 && hour < 24) {
+                if (hour >= 9 && hour < 15) {
                     Intent intent = new Intent("com.srtianxia.hejexam.view.activity.MainActivity.TimeBroadCastReceiver");
                     sendBroadcast(intent);
                 }
             }
-        },1000,2000);
+        },1000,5000);
         return super.onStartCommand(intent, flags, startId);
     }
 
