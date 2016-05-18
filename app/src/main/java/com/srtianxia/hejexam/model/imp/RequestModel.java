@@ -49,6 +49,10 @@ public class RequestModel implements IRequestModel {
         }).subscribeOn(Schedulers.io());
     }
 
+    /**
+     * 同上网络请求在io线程，同时使用map操作符进行Observable的转换（string->List<Stock>）
+     * @return
+     */
     @Override
     public Observable<String> requestFromNet() {
         return Observable.create(new Observable.OnSubscribe<String>() {
