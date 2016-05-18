@@ -2,6 +2,9 @@ package com.srtianxia.hejexam.util;
 
 
 
+import com.srtianxia.hejexam.app.Config;
+import com.srtianxia.hejexam.model.bean.Stock;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -73,8 +76,13 @@ public class OkHttpUtils {
             this.fields = fields;
         }
     }
-
-//    public String appendParams(){
-//
-//    }
+    //拼接url
+    public static String appendParams(List<Stock> stocks){
+        StringBuilder stringBuilder = new StringBuilder(Config.BASE_URL+"?en_prod_code=");
+        for (Stock stock : stocks){
+            stringBuilder.append(stock.Symbol +",");
+        }
+        stringBuilder.append("&fields=prod_name,px_change,last_px,px_change_rate,trade_status");
+        return stringBuilder.toString();
+    }
 }

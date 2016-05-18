@@ -12,6 +12,7 @@ import java.util.List;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
@@ -50,27 +51,17 @@ public class MainActivityPresenter {
                 });
     }
 
-    public void requestFromNet(){
-        iRequestModel.requestFromNet(null,null).map(new Func1<String, List<Stock>>() {
+    public void requestFromNet(Message message){
+        iRequestModel.requestFromNet(message).map(new Func1<String, List<Stock>>() {
             @Override
             public List<Stock> call(String s) {
                 return HSJsonUtil.getRealStockList(s,"snapshot");
             }
         }).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Stock>>() {
+                .subscribe(new Action1<List<Stock>>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Stock> stocks) {
-                        Log.d(TAG, stocks.get(0).name);
+                    public void call(List<Stock> stocks) {
+                        iMainActivity.requestDataFromNetSuccess(stocks);
                     }
                 });
     }
@@ -78,5 +69,7 @@ public class MainActivityPresenter {
 
     public interface IMainActivity{
         void initJsonFileData(List<Message> messages);
+
+        void requestDataFromNetSuccess(List<Stock> stocks);
     }
 }

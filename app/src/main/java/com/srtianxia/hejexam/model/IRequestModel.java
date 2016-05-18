@@ -14,5 +14,5 @@ import rx.Observable;
 public interface IRequestModel {
     Observable<List<Message>> requestFromJsonFile();
 
-    Observable<String> requestFromNet(List<String> en_prod_code,List<String> fields);
+    Observable<String> requestFromNet(Message message);
 }

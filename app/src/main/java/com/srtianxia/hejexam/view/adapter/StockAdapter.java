@@ -2,7 +2,6 @@ package com.srtianxia.hejexam.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,25 @@ import android.widget.TextView;
 
 import com.srtianxia.hejexam.R;
 import com.srtianxia.hejexam.model.bean.Message;
+import com.srtianxia.hejexam.model.bean.Stock;
+import com.srtianxia.hejexam.util.HSJsonUtil;
+import com.srtianxia.hejexam.util.OkHttpUtils;
 import com.srtianxia.hejexam.view.widget.HorizontalListView;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by srtianxia on 2016/5/18.
@@ -43,12 +54,38 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
     }
 
     @Override
-    public void onBindViewHolder(StockRvHolder holder, int position) {
+    public void onBindViewHolder(StockRvHolder holder, final int position) {
         holder.tvTitle.setText(items.get(position).getTitle());
         holder.tvSummary.setText(items.get(position).getSummary());
         holder.tvLikeCount.setText(""+items.get(position).getLikeCount());
         holder.tvSource.setText(items.get(position).getSource());
-        holder.horizontalListView.setAdapter(new HorizonListViewAdapter(context,items.get(position).getStocks()));
+        final HorizonListViewAdapter adapter = new HorizonListViewAdapter(context,items.get(position).getStocks());
+        holder.horizontalListView.setAdapter(adapter);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        String date = sdf.format(new Date(items.get(position).getCreatedAt() * 1000));
+        holder.tvTime.setText(date);
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                String url = OkHttpUtils.appendParams(items.get(position).getStocks());
+                try {
+                    subscriber.onNext(OkHttpUtils.getAsString(url));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).map(new Func1<String, List<Stock>>() {
+            @Override
+            public List<Stock> call(String s) {
+                return HSJsonUtil.getRealStockList(s,"snapshot");
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<Stock>>() {
+                    @Override
+                    public void call(List<Stock> stocks) {
+                        adapter.updata(stocks);
+                    }
+                });
     }
 
 

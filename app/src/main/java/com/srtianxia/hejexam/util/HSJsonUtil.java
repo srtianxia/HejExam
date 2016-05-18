@@ -42,8 +42,8 @@ public class HSJsonUtil {
                         map.put(list.get(i), jsonArray.get(i));
                     }
                     Stock stock = new Stock();
-                    stock.name = (String) map.get("prod_name");//股票名称
-                    stock.symbol = keys; //股票编码
+                    stock.Name = (String) map.get("prod_name");//股票名称
+                    stock.Symbol = keys; //股票编码
 
                     stock.last_px = map.get("last_px").toString();
                     stock.px_change_rate = map.get("px_change_rate").toString();
@@ -88,8 +88,8 @@ public class HSJsonUtil {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         map.put(list.get(i), jsonArray.get(i));
                     }
-                    stock.name = (String) map.get("prod_name");//股票名称
-                    stock.symbol = keys; //股票编码
+                    stock.Name = (String) map.get("prod_name");//股票名称
+                    stock.Symbol = keys; //股票编码
 
                     stock.last_px = map.get("last_px").toString();
                     stock.px_change_rate = map.get("px_change_rate").toString();

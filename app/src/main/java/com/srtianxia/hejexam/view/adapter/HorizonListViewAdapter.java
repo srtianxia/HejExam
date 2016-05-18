@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.srtianxia.hejexam.R;
 import com.srtianxia.hejexam.model.bean.Stock;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -39,10 +40,10 @@ public class HorizonListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final ViewHolder holder;
         if (convertView == null) {
-            holder=new ViewHolder();
+            holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_horizon_list, null);
             holder.imgStockRate= (ImageView) convertView.findViewById(R.id.img_stock_rate);
             holder.tvStockName= (TextView) convertView.findViewById(R.id.tv_stock_name);
@@ -52,11 +53,37 @@ public class HorizonListViewAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder)convertView.getTag();
         }
-        holder.imgStockRate.setImageResource(R.mipmap.ic_stock_down);
-        holder.tvStockName.setText(stockList.get(position).getName());
-        holder.tvStockRate.setText(stockList.get(position).getSymbol());
+
+        //初次加载值为空，直接返回
+        if (stockList.get(position).px_change_rate==null){
+            return convertView;
+        }
+
+        double value = Double.valueOf(stockList.get(position).px_change_rate);
+        DecimalFormat df = new DecimalFormat("#.00");
+        value = Double.parseDouble(df.format(value));
+        if (Double.valueOf(stockList.get(position).px_change_rate) > 0) {
+            holder.tvStockRate.setText("+" + value + "%");
+            holder.imgStockRate.setImageResource(R.mipmap.ic_stock_up);
+            holder.tvStockName.setTextColor(context.getResources().getColor(R.color.stock_up));
+            holder.tvStockRate.setTextColor(context.getResources().getColor(R.color.stock_up));
+        } else {
+            holder.tvStockRate.setText(value + "%");
+            holder.imgStockRate.setImageResource(R.mipmap.ic_stock_down);
+            holder.tvStockRate.setTextColor(context.getResources().getColor(R.color.stock_down));
+            holder.tvStockName.setTextColor(context.getResources().getColor(R.color
+                    .stock_down));
+        }
+        holder.tvStockName.setText(stockList.get(position).Name);
         return convertView;
     }
+
+    public void updata(List<Stock> data){
+        stockList.clear();
+        stockList.addAll(data);
+        notifyDataSetChanged();
+    }
+
     public final class ViewHolder{
         public ImageView imgStockRate;
         public TextView tvStockName;

@@ -1,16 +1,16 @@
-package com.srtianxia.hejexam;
+package com.srtianxia.hejexam.view.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
+import com.srtianxia.hejexam.R;
 import com.srtianxia.hejexam.model.bean.Message;
+import com.srtianxia.hejexam.model.bean.Stock;
 import com.srtianxia.hejexam.presenter.MainActivityPresenter;
 import com.srtianxia.hejexam.view.adapter.StockAdapter;
 
@@ -24,11 +24,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     Toolbar toolbar;
     @Bind(R.id.rv_stock)
     RecyclerView rvStock;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
 
     private MainActivityPresenter presenter;
     private StockAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         ButterKnife.bind(this);
         presenter = new MainActivityPresenter(this);
         initView();
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.requestFromJsonFile();
-            }
-        });
+        presenter.requestFromJsonFile();
     }
 
     private void initView() {
@@ -81,5 +73,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     @Override
     public void initJsonFileData(List<Message> messages) {
         adapter.addItems(messages);
+    }
+
+    @Override
+    public void requestDataFromNetSuccess(List<Stock> stocks) {
+
     }
 }

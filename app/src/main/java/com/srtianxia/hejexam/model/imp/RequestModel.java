@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.srtianxia.hejexam.model.IRequestModel;
 import com.srtianxia.hejexam.model.bean.Message;
 import com.srtianxia.hejexam.model.bean.MessageHolder;
-import com.srtianxia.hejexam.util.HSJsonUtil;
 import com.srtianxia.hejexam.util.OkHttpUtils;
 import com.srtianxia.hejexam.util.ReadJsonFileUtil;
 
@@ -53,17 +52,16 @@ public class RequestModel implements IRequestModel {
      * @return
      */
     @Override
-    //这里参数改为两个list
-    public Observable<String> requestFromNet(List<String> en_prod_code,List<String> fields) {
+    public Observable<String> requestFromNet(final Message message) {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-
-//                try {
-////                    subscriber.onNext(OkHttpUtils.getAsString());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                String url = OkHttpUtils.appendParams(message.getStocks());
+                try {
+                    subscriber.onNext(OkHttpUtils.getAsString(url));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }).subscribeOn(Schedulers.io());
     }

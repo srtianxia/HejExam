@@ -6,13 +6,16 @@
     <ImageView
         android:id="@+id/img_stock_rate"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
     <TextView
         android:id="@+id/tv_stock_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
     <TextView
         android:id="@+id/tv_stock_rate"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>
