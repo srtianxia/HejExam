@@ -2,18 +2,12 @@ package com.srtianxia.hejexam.util;
 
 
 
-import android.util.Log;
-
-import com.srtianxia.hejexam.model.callback.OkHttpUtilsCallback;
-
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
@@ -62,24 +56,25 @@ public class OkHttpUtils {
      * @param url
      * @return 字符串
      */
-    private String _getAsString(String url) throws IOException
-    {
+    private String _getAsString(String url) throws IOException {
         Response execute = _getAsyn(url);
         return execute.body().string();
     }
 
-    //*************对外公布的方法************
-
-
-    public static Response getAsyn(String url) throws IOException
-    {
-        return getInstance()._getAsyn(url);
-    }
-
-
-    public static String getAsString(String url) throws IOException
-    {
+    public static String getAsString(String url) throws IOException {
         return getInstance()._getAsString(url);
     }
 
+    public static class Param{
+        List<String> en_prod_code;
+        List<String> fields;
+        public Param(List<String> en_prod_code,List<String> fields){
+            this.en_prod_code = en_prod_code;
+            this.fields = fields;
+        }
+    }
+
+//    public String appendParams(){
+//
+//    }
 }

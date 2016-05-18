@@ -51,7 +51,7 @@ public class MainActivityPresenter {
     }
 
     public void requestFromNet(){
-        iRequestModel.requestFromNet().map(new Func1<String, List<Stock>>() {
+        iRequestModel.requestFromNet(null,null).map(new Func1<String, List<Stock>>() {
             @Override
             public List<Stock> call(String s) {
                 return HSJsonUtil.getRealStockList(s,"snapshot");

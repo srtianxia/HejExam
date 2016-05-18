@@ -22,67 +22,10 @@
         tool:text="今日重要性：✨✨"
         android:layout_marginTop="@dimen/item_padding_margin"/>
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/item_padding_margin"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/img_stock_01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_stock_down"/>
-            <TextView
-                android:id="@+id/tv_stock_01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tool:text="湖南黄金"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/img_stock_02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_stock_down"/>
-            <TextView
-                android:id="@+id/tv_stock_02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tool:text="山东黄金"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/img_stock_03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_stock_down"/>
-            <TextView
-                android:id="@+id/tv_stock_03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tool:text="赤峰黄金"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    <com.srtianxia.hejexam.view.widget.HorizontalListView
+        android:id="@+id/horizontal_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.srtianxia.hejexam.view.widget.HorizontalListView>
 
     <ImageView
         android:layout_marginTop="@dimen/item_padding_margin"
@@ -91,5 +34,52 @@
         android:src="@mipmap/spilt_line"
         android:scaleType="fitXY"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_share"
+            android:src="@mipmap/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+       <ImageView
+           android:id="@+id/img_like"
+           android:layout_toRightOf="@+id/img_share"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@mipmap/ic_favorite_grey600_18dp" />
+
+        <TextView
+            android:id="@+id/tv_like_count"
+            android:layout_toRightOf="@id/img_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tool:text="5"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_toLeftOf="@+id/tv_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tool:text="08:02" />
+
+        <TextView
+            android:id="@+id/tv_from"
+            android:layout_toLeftOf="@+id/tv_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/from"/>
+
+        <TextView
+            android:id="@+id/tv_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tool:text="选股宝"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/colorAccent"/>
+    </RelativeLayout>
 
 </LinearLayout>

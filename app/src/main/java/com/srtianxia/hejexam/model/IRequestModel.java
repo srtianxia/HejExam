@@ -2,6 +2,7 @@ package com.srtianxia.hejexam.model;
 
 import com.srtianxia.hejexam.model.bean.Message;
 import com.srtianxia.hejexam.model.bean.Stock;
+import com.srtianxia.hejexam.util.OkHttpUtils;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ import rx.Observable;
 public interface IRequestModel {
     Observable<List<Message>> requestFromJsonFile();
 
-    Observable<String> requestFromNet();
+    Observable<String> requestFromNet(List<String> en_prod_code,List<String> fields);
 }

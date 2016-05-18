@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.srtianxia.hejexam.R;
 import com.srtianxia.hejexam.model.bean.Message;
+import com.srtianxia.hejexam.view.widget.HorizontalListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +42,6 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
     public void onBindViewHolder(StockRvHolder holder, int position) {
         holder.tvTitle.setText(items.get(position).getTitle());
         holder.tvSummary.setText(items.get(position).getSummary());
-        holder.tvStock01.setText(items.get(position).getStocks().get(0).getName());
-        holder.tvStock02.setText(items.get(position).getStocks().get(1).getName());
-        holder.tvStock03.setText(items.get(position).getStocks().get(2).getName());
     }
 
 
@@ -57,18 +55,17 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
         TextView tvTitle;
         @Bind(R.id.tv_summary)
         TextView tvSummary;
-        @Bind(R.id.img_stock_01)
-        ImageView imgStock01;
-        @Bind(R.id.tv_stock_01)
-        TextView tvStock01;
-        @Bind(R.id.img_stock_02)
-        ImageView imgStock02;
-        @Bind(R.id.tv_stock_02)
-        TextView tvStock02;
-        @Bind(R.id.img_stock_03)
-        ImageView imgStock03;
-        @Bind(R.id.tv_stock_03)
-        TextView tvStock03;
+        @Bind(R.id.horizontal_list_view)
+        HorizontalListView horizontalListView;
+        @Bind(R.id.img_share)
+        ImageView imgShare;
+        @Bind(R.id.tv_like_count)
+        TextView tvLikeCount;
+        @Bind(R.id.tv_time)
+        TextView tvTime;
+        @Bind(R.id.tv_source)
+        TextView tvSource;
+
         public StockRvHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

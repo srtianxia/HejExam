@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.requestFromNet();
+                presenter.requestFromJsonFile();
             }
         });
     }
