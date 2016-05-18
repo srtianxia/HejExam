@@ -18,6 +18,6 @@ public class Stock {
 
     @Override
     public String toString() {
-        return "Name " + Name + " Symbol"+ Symbol;
+        return "symbol " + Symbol + " px_change_rate"+ px_change_rate;
     }
 }

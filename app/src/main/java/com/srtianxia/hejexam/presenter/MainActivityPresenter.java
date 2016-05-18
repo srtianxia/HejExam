@@ -1,7 +1,5 @@
 package com.srtianxia.hejexam.presenter;
 
-import android.util.Log;
-
 import com.srtianxia.hejexam.model.IRequestModel;
 import com.srtianxia.hejexam.model.bean.Message;
 import com.srtianxia.hejexam.model.bean.Stock;

@@ -2,6 +2,7 @@ package com.srtianxia.hejexam.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,13 +58,14 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
     public void onBindViewHolder(StockRvHolder holder, final int position) {
         holder.tvTitle.setText(items.get(position).getTitle());
         holder.tvSummary.setText(items.get(position).getSummary());
-        holder.tvLikeCount.setText(""+items.get(position).getLikeCount());
+        holder.tvLikeCount.setText(" "+items.get(position).getLikeCount());
         holder.tvSource.setText(items.get(position).getSource());
         final HorizonListViewAdapter adapter = new HorizonListViewAdapter(context,items.get(position).getStocks());
         holder.horizontalListView.setAdapter(adapter);
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         String date = sdf.format(new Date(items.get(position).getCreatedAt() * 1000));
         holder.tvTime.setText(date);
+
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
@@ -83,6 +85,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
                 .subscribe(new Action1<List<Stock>>() {
                     @Override
                     public void call(List<Stock> stocks) {
+                        Log.d("Observable",stocks.toString());
                         adapter.updata(stocks);
                     }
                 });
@@ -115,4 +118,5 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
             ButterKnife.bind(this, itemView);
         }
     }
+
 }

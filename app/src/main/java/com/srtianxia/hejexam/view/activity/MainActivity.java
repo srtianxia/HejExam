@@ -1,5 +1,8 @@
 package com.srtianxia.hejexam.view.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +15,7 @@ import com.srtianxia.hejexam.R;
 import com.srtianxia.hejexam.model.bean.Message;
 import com.srtianxia.hejexam.model.bean.Stock;
 import com.srtianxia.hejexam.presenter.MainActivityPresenter;
+import com.srtianxia.hejexam.service.TimeService;
 import com.srtianxia.hejexam.view.adapter.StockAdapter;
 
 import java.util.List;
@@ -26,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     RecyclerView rvStock;
 
     private MainActivityPresenter presenter;
-    private StockAdapter adapter;
+
+    private static StockAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         ButterKnife.bind(this);
         presenter = new MainActivityPresenter(this);
         initView();
+        initService();
         presenter.requestFromJsonFile();
+    }
+
+    private void initService() {
+        Intent intent = new Intent(this, TimeService.class);
+        startService(intent);
     }
 
     private void initView() {
@@ -79,4 +90,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     public void requestDataFromNetSuccess(List<Stock> stocks) {
 
     }
+
+    public static class TimeBroadCastReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 }
