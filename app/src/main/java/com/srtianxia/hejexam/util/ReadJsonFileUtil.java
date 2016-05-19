@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 /**
  * Created by srtianxia on 2016/5/18.
- * 读取json的工具类
+ * 读取本地json文件为String的工具类
  */
 public class ReadJsonFileUtil {
     public static String getFromAssets(String fileName){

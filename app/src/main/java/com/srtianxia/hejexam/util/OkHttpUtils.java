@@ -2,8 +2,6 @@ package com.srtianxia.hejexam.util;
 
 
 
-import android.util.Log;
-
 import com.srtianxia.hejexam.app.Config;
 import com.srtianxia.hejexam.model.bean.Stock;
 
@@ -17,6 +15,7 @@ import okhttp3.Response;
 
 /**
  * Created by srtianxia on 2016/5/18.
+ * 简单的封装了okhttp，因为使用了rxjava，就封装了同步方法，异步交给rx去执行
  */
 public class OkHttpUtils {
     private static final String TAG = "OkHttpUtils";
@@ -66,11 +65,15 @@ public class OkHttpUtils {
     }
 
     public static String getAsString(String url) throws IOException {
-        Log.d(TAG,"OkHttpUtils get request");
         return getInstance()._getAsString(url);
     }
 
-    //拼接url的工具
+
+    /**
+     * 根据 List<Stock> stocks拼接url的工具
+     * @param stocks
+     * @return
+     */
     public static String appendParams(List<Stock> stocks){
         StringBuilder stringBuilder = new StringBuilder(Config.BASE_URL+"?en_prod_code=");
         for (Stock stock : stocks){

@@ -48,7 +48,9 @@ public class RequestModel implements IRequestModel {
     }
 
     /**
-     * 同上网络请求在io线程，同时使用map操作符进行Observable的转换（string->List<Stock>）
+     * 网络请求在io线程，同时使用map操作符进行Observable的转换（string->List<Stock>）
+     * 这个方法没有用到，本来想在外面请求完数据传到adapter中去，刷新数据有问题，就
+     * 在adapter里面请求的（目测是多并发的问题），但是这样破坏了解耦。
      * @return
      */
     @Override

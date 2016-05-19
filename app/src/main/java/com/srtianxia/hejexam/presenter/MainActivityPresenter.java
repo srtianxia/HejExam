@@ -15,6 +15,7 @@ import rx.functions.Func1;
 
 /**
  * Created by srtianxia on 2016/5/18.
+ * presenter层
  */
 public class MainActivityPresenter {
     private static final String TAG = "MainActivityPresenter";
@@ -49,6 +50,10 @@ public class MainActivityPresenter {
                 });
     }
 
+    /**
+     * 从网络请求数据
+     * @param message
+     */
     public void requestFromNet(Message message){
         iRequestModel.requestFromNet(message).map(new Func1<String, List<Stock>>() {
             @Override
@@ -64,11 +69,16 @@ public class MainActivityPresenter {
                 });
     }
 
-    //释放引用
+    /**
+     * 释放view引用
+     */
     public void onRelieveView() {
         if (iMainActivity != null) iMainActivity = null;
     }
 
+    /**
+     * view的抽象
+     */
     public interface IMainActivity{
         void initJsonFileData(List<Message> messages);
 

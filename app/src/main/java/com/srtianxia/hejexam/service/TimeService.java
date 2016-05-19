@@ -14,9 +14,9 @@ import java.util.TimerTask;
 
 /**
  * Created by srtianxia on 2016/5/18.
+ * 监视时间的service
  */
 public class TimeService extends Service {
-
     private MainActivity.TimeBroadCastReceiver receiver;
     private int hour;
 
@@ -29,6 +29,7 @@ public class TimeService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        //注册广播
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.srtianxia.hejexam.view.activity.MainActivity.TimeBroadCastReceiver");
         receiver = new MainActivity.TimeBroadCastReceiver();
@@ -37,6 +38,7 @@ public class TimeService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        //使用timer定时器，应用启动1秒后每3秒钟判断一次，是9：00-15：00的时间段就发送广播通知刷新数据
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -48,7 +50,7 @@ public class TimeService extends Service {
                     sendBroadcast(intent);
                 }
             }
-        },1000,5000);
+        },1000,3000);
         return super.onStartCommand(intent, flags, startId);
     }
 
