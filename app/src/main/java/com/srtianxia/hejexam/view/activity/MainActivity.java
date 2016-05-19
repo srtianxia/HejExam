@@ -10,12 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.srtianxia.hejexam.R;
+import com.srtianxia.hejexam.app.App;
 import com.srtianxia.hejexam.model.bean.Message;
 import com.srtianxia.hejexam.model.bean.Stock;
 import com.srtianxia.hejexam.presenter.MainActivityPresenter;
 import com.srtianxia.hejexam.service.TimeService;
+import com.srtianxia.hejexam.util.HttpUtils;
 import com.srtianxia.hejexam.view.adapter.StockAdapter;
 
 import java.util.List;
@@ -32,12 +35,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     private MainActivityPresenter presenter;
 
     private static StockAdapter adapter;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        if (!HttpUtils.isNetworkConnected(this)){
+            Toast.makeText(MainActivity.this, R.string.toast_no_internet, Toast.LENGTH_SHORT).show();
+        }
         presenter = new MainActivityPresenter(this);
         initView();
         initService();
@@ -45,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     }
 
     private void initService() {
-        Intent intent = new Intent(this, TimeService.class);
+        intent = new Intent(this, TimeService.class);
         startService(intent);
     }
 
@@ -92,15 +99,26 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     }
 
     @Override
+    public void requestDataFromNetFailure(String cause) {
+        Toast.makeText(MainActivity.this, cause, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.onRelieveView();
+        stopService(intent);
     }
 
     public static class TimeBroadCastReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
-            adapter.notifyDataSetChanged();
+            //接受广播后进行判断有无网络
+            if (HttpUtils.isNetworkConnected(App.getContext())) {
+                adapter.notifyDataSetChanged();
+            }else {
+                Toast.makeText(App.getContext(), R.string.toast_no_internet, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

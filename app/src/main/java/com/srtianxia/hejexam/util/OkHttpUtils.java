@@ -68,6 +68,9 @@ public class OkHttpUtils {
         return getInstance()._getAsString(url);
     }
 
+    public static Response getAsResponse(String url) throws IOException {
+        return getInstance()._getAsyn(url);
+    }
 
     /**
      * 根据 List<Stock> stocks拼接url的工具

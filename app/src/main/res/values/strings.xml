@@ -2,5 +2,7 @@
     <string name="app_name">HejExam</string>
     <string name="action_settings">Settings</string>
 
+    <string name="toast_no_internet">无网络连接</string>
     <string name="from">来自</string>
+    <string name="request_error">请求出错</string>
 </resources>

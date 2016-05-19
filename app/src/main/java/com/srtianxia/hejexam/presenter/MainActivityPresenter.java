@@ -83,5 +83,7 @@ public class MainActivityPresenter {
         void initJsonFileData(List<Message> messages);
 
         void requestDataFromNetSuccess(List<Stock> stocks);
+
+        void requestDataFromNetFailure(String cause);
     }
 }

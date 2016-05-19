@@ -38,7 +38,7 @@ public class TimeService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //使用timer定时器，应用启动1秒后每3秒钟判断一次，是9：00-15：00的时间段就发送广播通知刷新数据
+        //使用timer定时器，应用启动1秒后每2秒钟判断一次，是9：00-15：00的时间段就发送广播通知刷新数据
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -50,7 +50,7 @@ public class TimeService extends Service {
                     sendBroadcast(intent);
                 }
             }
-        },1000,3000);
+        },1000,2000);
         return super.onStartCommand(intent, flags, startId);
     }
 

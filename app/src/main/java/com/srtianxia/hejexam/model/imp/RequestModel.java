@@ -1,6 +1,7 @@
 package com.srtianxia.hejexam.model.imp;
 
 import com.google.gson.Gson;
+import com.srtianxia.hejexam.app.Config;
 import com.srtianxia.hejexam.model.IRequestModel;
 import com.srtianxia.hejexam.model.bean.Message;
 import com.srtianxia.hejexam.model.bean.MessageHolder;
@@ -9,7 +10,9 @@ import com.srtianxia.hejexam.util.ReadJsonFileUtil;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -60,7 +63,12 @@ public class RequestModel implements IRequestModel {
             public void call(Subscriber<? super String> subscriber) {
                 String url = OkHttpUtils.appendParams(message.getStocks());
                 try {
-                    subscriber.onNext(OkHttpUtils.getAsString(url));
+                    Response response = OkHttpUtils.getAsResponse(url);
+                    if (response.code()== Config.HTTP_SUCCESS) {
+                        subscriber.onNext(response.body().string());
+                    }else {
+                        subscriber.onError(new Exception("error"));
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

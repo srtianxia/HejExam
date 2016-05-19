@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.srtianxia.hejexam.R;
+import com.srtianxia.hejexam.app.Config;
 import com.srtianxia.hejexam.model.bean.Message;
 import com.srtianxia.hejexam.model.bean.Stock;
 import com.srtianxia.hejexam.util.HSJsonUtil;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -71,7 +73,12 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
             public void call(Subscriber<? super String> subscriber) {
                 String url = OkHttpUtils.appendParams(items.get(position).getStocks());
                 try {
-                    subscriber.onNext(OkHttpUtils.getAsString(url));
+                    Response response = OkHttpUtils.getAsResponse(url);
+                    if (response.code()== Config.HTTP_SUCCESS) {
+                        subscriber.onNext(response.body().string());
+                    }else {
+                        subscriber.onError(new Exception("error"));
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -85,7 +92,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockRvHolde
                 .subscribe(new Action1<List<Stock>>() {
                     @Override
                     public void call(List<Stock> stocks) {
-                        Log.d("Observable",stocks.toString());
+                        Log.d("stock info : ",stocks.toString());
                         adapter.updata(stocks);
                     }
                 });
